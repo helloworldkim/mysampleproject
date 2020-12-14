@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.reactboardserver.mapper.YoutubeMapper">
+
+<select id="fetchMovies" resultType="com.spring.reactboardserver.vo.YoutubeVO">
+		SELECT 	id,
+				video_id_videoid,
+				video_snippet_title,
+				video_snippet_description,
+				save_date
+		  FROM 	favorite_list
+		order by id;
+</select>
+
+<select id="fetchMovieById" resultType="com.spring.reactboardserver.vo.YoutubeVO">
+		SELECT 	id,
+				video_id_videoid,
+				video_snippet_title,
+				video_snippet_description,
+				save_date
+	    FROM 	favorite_list
+		WHERE 	id=#{id};
+</select>
+<insert id="addMovice" parameterType="com.spring.reactboardserver.vo.YoutubeVO">
+			INSERT INTO favorite_list
+					(video_id_videoid,video_snippet_title,
+					video_snippet_description,save_date)
+			VALUES
+					(#{video_id_videoid},#{video_snippet_title},
+					#{video_snippet_description},now());
+</insert>
+<delete id="removeMovie">
+	DELETE FROM favorite_list
+	WHERE id=#{id}
+</delete>
+</mapper>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.reactboardserver.mapper.UserMapper">
+
+<select id="fetchUsers" resultType="com.spring.reactboardserver.vo.UserVO">
+	select * from users
+	where del ='N'
+	order by registeredDate
+	
+	
+</select>
+<insert id="addUser" parameterType="com.spring.reactboardserver.vo.UserVO">
+	INSERT INTO users(userId,password,phone,email,registeredDate)
+		VALUES(#{userId},#{password},#{phone},#{email},now());
+</insert>
+
+<select id="fetchUserById" resultType="com.spring.reactboardserver.vo.UserVO">
+	select *
+	  from users
+	 where id=#{id}
+</select>
+
+<update id="editUser" parameterType="com.spring.reactboardserver.vo.UserVO">
+	UPDATE 	users
+	   SET
+			userId = #{userId},
+			password = #{password},
+			phone = #{phone},
+			email = #{email}
+	 WHERE  id = #{id};
+</update>
+<update id="deleteUser" >
+	UPDATE 	users
+	   SET
+			del = 'Y'
+	 WHERE  id = #{id};
+</update>
+</mapper>
